@@ -13,7 +13,7 @@ echo "
   ╚██████╗██║  ██║███████╗╚██████╗╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
    ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
                                                                                      
-                                                    BY: LIS AZEVEDO AND EWERTON ALVES                    
+                                   BY: LIS AZEVEDO, EWERTON ALVES AND RICARDO RIBEIRO                   
 "
 
 echo "OPTIONS: 
@@ -44,7 +44,9 @@ case $option in
     2) echo 2
 
         ./calculator.sh ;;
-    3) echo 3 ;;
+    3) echo "RICARDO TROUXA"
+        read 
+        ./calculator.sh ;;
 
 
     4) echo "                                                  */,.//*  (                    
