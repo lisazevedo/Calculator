@@ -7,28 +7,46 @@ decimal_to_binary(){
     echo "obase=2;${number8:1:4}" | bc
 }
 
+less_8_bits(){
+    var=""
+    num=0
+    while (( $num < $(( 7-${#binary} )) ))
+    do
+        var+="0"
+        (( num = num + 1 ))
+    done
+
+    echo "$var$binary"
+}
+
 simple_floating_point(){
     
     declare -a array_res
 
     binary=$(decimal_to_binary number8)
-
-    echo "${number8:0:1}"
     
-    if "${number8:0:1}"="+" 
+    if (( ${#binary} < 7 ))
+    then 
+        binary=$(less_8_bits binary)
+    fi    
+    
+
+    if [ "${number8:0:1}" == "+" ] 
     then
-        echo "entrou"
         array_res[0]=0
     else
         array_res[0]=1
     fi 
 
+    array_res[1]=${binary:0:3}
+    array_res[2]=${binary:3:4}
     
+    echo
     echo "Sign: ${array_res[0]}" 
     echo "Exponent: ${array_res[1]}"
     echo "Mantissa: ${array_res[2]}"
 }
-
+#--------------------- END FUNCTIONS ---------------------------
 clear
 
 echo " 
