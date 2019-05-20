@@ -10,6 +10,19 @@ sign_simple_floating(){
     fi
 }
 
+integer_from_float(){
+    
+    integer=""
+    if [ "${result:0:1}" == "." ]
+    then 
+        integer=0
+        echo $integer
+    else
+        integer=${result:0:1}
+        echo "scale=2 ; $integer/1.0" | bc
+    fi    
+}
+
 simple_floating_point_FLOAT(){
     
     declare -a array_res
@@ -18,11 +31,11 @@ simple_floating_point_FLOAT(){
     float="0"
     aux=0
     
-    for ((i=0; i<${#number}; i++)){
+    for ((i=1; i<${#number}; i++)){
         
         if [ "${number:i:1}" == "." ] || (( aux == 1 )) 
         then
-            float+=${number1:i:1}
+            float+=${number:i:1}
             aux=1
 
         elif (( aut == 0 ))
@@ -32,15 +45,32 @@ simple_floating_point_FLOAT(){
     }      
     
     integer_binary=$(echo "obase=2;${integer}" | bc)
-
+    
     array_res[0]=$(sign_simple_floating number)
-    array_res[1] = $integer_binary
-    array_res[2] = '.'
+    array_res[1]=$integer_binary
+    array_res[2]='.'
 
+    result=$(echo "$float*2" | bc)
 
+    float_binary=''
 
-    array_res[3] = $float_binary
+    while true
+    do
+        aux=$(integer_from_float result)
+        
+        result=$(echo "$result*2" | bc)
 
+        float_binary="$float_binary$aux"
+
+        if (( aux == 1.00 ))
+        then
+            break 
+        fi 
+    done
+
+    array_res[3]=$float_binary
+
+    echo "$integer_binary"."$float_binary"
 }
 
 less_8_bits(){
@@ -72,9 +102,8 @@ simple_floating_point_INT(){
     array_res[2]=${binary:3:4}
     
     echo
+    echo "Binary Number: ${array_res[@]}"
     echo "Sign: ${array_res[0]}" 
     echo "Exponent: ${array_res[1]}"
     echo "Mantissa: ${array_res[2]}"
 }
-
-
