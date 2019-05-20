@@ -30,10 +30,10 @@ echo
 case $option in 
 
     1) read -p "Write the number: " number
-       
-        if [[ $number8 == *.* ]]
+        
+        if [[ $number =~ "." ]]
         then
-            simple_floating_point_FLOAT number
+            #simple_floating_point_FLOAT number
         else
             simple_floating_point_INT number
         fi
