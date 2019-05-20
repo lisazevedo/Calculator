@@ -52,25 +52,35 @@ simple_floating_point_FLOAT(){
 
     result=$(echo "$float*2" | bc)
 
-    float_binary=''
+    float_binary=""
+count=0
 
-    while true
-    do
-        aux=$(integer_from_float result)
-        
-        result=$(echo "$result*2" | bc)
+while true
+do
+    if (( $(echo "$result > 1.00" | bc) == 1 ))
+    then
+        float_binary="${float_binary}1"
+        result=$(echo "scale=2; $result-1.0" | bc)
+    
+    elif (( $(echo "$result == 1.00" | bc) == 1 ))
+    then
+        float_binary="${float_binary}1"
+        break
+    else
+        float_binary="${float_binary}0"
+    fi
 
-        float_binary="$float_binary$aux"
-
-        if (( aux == 1.00 ))
-        then
-            break 
-        fi 
-    done
+    if ((count == 4 ))
+    then 
+        break
+    fi
+    ((count+=1))
+    result=$(echo "$result*2" | bc)
+done
 
     array_res[3]=$float_binary
-
-    echo "$integer_binary"."$float_binary"
+    echo
+    echo "Binary Representation: ${array_res[0]}$integer_binary"."$float_binary"
 }
 
 less_8_bits(){
@@ -102,8 +112,10 @@ simple_floating_point_INT(){
     array_res[2]=${binary:3:4}
     
     echo
-    echo "Binary Number: ${array_res[@]}"
+    echo "Binary Representation: ${array_res[@]}"
     echo "Sign: ${array_res[0]}" 
     echo "Exponent: ${array_res[1]}"
     echo "Mantissa: ${array_res[2]}"
 }
+
+

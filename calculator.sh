@@ -21,8 +21,9 @@ echo "OPTIONS:
 1) Simple Floating Point (8 bits) 
 2) IEEE 754 Floating Point (32 bits or 64 bits) 
 3) Floating Point to Hexadecimal
-4) Big-Big 
-5) Exit
+4) Help
+5) Big-Big 
+6) Exit
 "
 
 read -p "Option: " option
@@ -33,7 +34,7 @@ case $option in
         
         if [[ $number =~ "." ]]
         then
-            #simple_floating_point_FLOAT number
+            simple_floating_point_FLOAT number
         else
             simple_floating_point_INT number
         fi
@@ -48,8 +49,10 @@ case $option in
         read 
         ./calculator.sh ;;
 
+    4) echo Help
 
-    4) echo "                                                  */,.//*  (                    
+        ./calculator ;;
+    5) echo "                                                  */,.//*  (                    
                            */,   .//,,*//*.               /,                   
                     (.     .                        .**** *.                   
                    /,..  .**,      .       . . // .(/.,**  /                   
@@ -84,7 +87,7 @@ case $option in
                                   *&%%&&&&,    " 
         read                          
         ./calculator.sh ;;
-    5) exit ;;     
+    6) exit ;;     
 
     *) echo "invalid option!!" 
         read
