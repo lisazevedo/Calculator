@@ -18,7 +18,7 @@ echo "
 
 echo "OPTIONS: 
 
-1) Simple Floating Point (8 bits) 
+1) Simple Floating Point (Integer: -127 ~ +127 | Float: -3.9999 ~ +3.9999 ) 
 2) IEEE 754 Floating Point (32 bits or 64 bits) 
 3) Floating Point to Hexadecimal
 4) Help
@@ -31,16 +31,25 @@ echo
 case $option in 
 
     1) read -p "Write the number: " number
-        
-        if [[ $number =~ "." ]]
+        if [[ $number =~ "." ]] && (( $(echo "${number:1:7} > 3.9999" | bc) == 1 ))
         then
-            simple_floating_point_FLOAT number
+            echo "Invalid value!!"
+
+        elif [[ $number != *"."* ]] && (( $(echo "${number:1:7} > 127" | bc) == 1 ))
+        then
+            echo "Invalid value!!"
         else
-            simple_floating_point_INT number
+            if [[ $number =~ "." ]]
+            then
+                simple_floating_point_FLOAT number
+            else
+                simple_floating_point_INT number
+            fi
         fi
         read
       
-        ./calculator.sh ;;
+        ./calculator.sh 
+        1 ;;
 
     2) echo 2
 
@@ -49,9 +58,9 @@ case $option in
         read 
         ./calculator.sh ;;
 
-    4) echo Help
-
-        ./calculator ;;
+    4) echo "Help"
+        read
+        ./calculator.sh ;;
     5) echo "                                                  */,.//*  (                    
                            */,   .//,,*//*.               /,                   
                     (.     .                        .**** *.                   
