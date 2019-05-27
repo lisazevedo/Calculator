@@ -54,7 +54,7 @@ case $option in
     2) echo 2
 
         ./calculator.sh ;;
-    3) echo "RICARDO TROUXA"
+    3) echo "RICARDO GATO"
         read 
         ./calculator.sh ;;
 
