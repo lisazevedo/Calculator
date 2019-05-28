@@ -16,6 +16,9 @@ typedef union {
     } bin; 
 } float32; 
 
+
+
+
 int convertebinario(int dec)
 {
 int i,q[80],r[80]; 
