@@ -18,7 +18,7 @@ echo "
 
 echo "OPTIONS: 
 
-1) Simple Floating Point (Integer: -127 ~ +127 | Float: -3.99 ~ +3.9999 ) 
+1) Simple Floating Point (Integer: -127 ~ +127 | Float: -3.99 ~ +3.99 ) 
 2) IEEE 754 Floating Point (32 bits or 64 bits) 
 3) Big-Big 
 4) Exit
@@ -52,11 +52,14 @@ case $option in
         read -p "    1) 32 bits
     2) 64 bits
     " bits
-        if (($bits == 1))
+        if (( $bits == 1 ))
         then
-            ./float32 float $number 
-        else
-            ./float32 double $number
+            ./float32 float $number
+        elif (( $bits == 2 ))
+        then      
+            ./float32 double $number 
+        else 
+            echo "Invalid Option!!"  
         fi
         read        
         ./calculator.sh ;;
