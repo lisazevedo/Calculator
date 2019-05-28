@@ -45,17 +45,34 @@ i=0;
 return(0);
 }
 
+void printNumber(int n, int i) 
+{ 
+  
+    // Prints the binary representation 
+    // of a number n up to i-bits. 
+    int k; 
+    for (k = i - 1; k >= 0; k--) { 
+  
+        if ((n >> k) & 1) 
+            printf("1"); 
+        else
+            printf("0"); 
+    } 
+} 
 
 void printFloat(float32 number) 
 { 
   
    
     printf("%d | ", number.bin.sign); 
-    convertebinario(number.bin.exp);
+    printNumber(number.bin.exp,8);
+//convertebinario(number.bin.exp);
     printf(" | "); 
-    convertebinario(number.bin.mant);
+//convertebinario(number.bin.mant);
+    printNumber(number.bin.mant,23);
     printf("\n"); 
 } 
+
 
 
 int main(int argc, char *argv[]){
