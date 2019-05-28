@@ -13,17 +13,15 @@ echo "
   ╚██████╗██║  ██║███████╗╚██████╗╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║
    ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
                                                                                      
-                                   BY: LIS AZEVEDO, EWERTON ALVES AND RICARDO RIBEIRO                   
+                                                  BY: LIS AZEVEDO AND RICARDO RIBEIRO                   
 "
 
 echo "OPTIONS: 
 
-1) Simple Floating Point (Integer: -127 ~ +127 | Float: -3.9999 ~ +3.9999 ) 
+1) Simple Floating Point (Integer: -127 ~ +127 | Float: -3.99 ~ +3.9999 ) 
 2) IEEE 754 Floating Point (32 bits or 64 bits) 
-3) Floating Point to Hexadecimal
-4) Help
-5) Big-Big 
-6) Exit
+3) Big-Big 
+4) Exit
 "
 
 read -p "Option: " option
@@ -48,20 +46,22 @@ case $option in
         fi
         read
       
-        ./calculator.sh 
-        1 ;;
-
-    2) echo 2
-
-        ./calculator.sh ;;
-    3) echo "RICARDO GATO"
-        read 
         ./calculator.sh ;;
 
-    4) echo "Help"
-        read
+    2)  read -p "Write the number: " number
+        read -p "    1) 32 bits
+    2) 64 bits
+    " bits
+        if (($bits == 1))
+        then
+            ./float32 float $number 
+        else
+            ./float32 double $number
+        fi
+        read        
         ./calculator.sh ;;
-    5) echo "                                                  */,.//*  (                    
+    
+    3) echo "                                                  */,.//*  (                    
                            */,   .//,,*//*.               /,                   
                     (.     .                        .**** *.                   
                    /,..  .**,      .       . . // .(/.,**  /                   
@@ -96,7 +96,7 @@ case $option in
                                   *&%%&&&&,    " 
         read                          
         ./calculator.sh ;;
-    6) exit ;;     
+    4) exit ;;     
 
     *) echo "invalid option!!" 
         read
