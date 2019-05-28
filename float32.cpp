@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<math.h>
 #include<stdio.h>
-
+#include<string.h>
 using namespace std;
 
 typedef union { 
@@ -17,6 +17,17 @@ typedef union {
 } float32; 
 
 
+typedef union { 
+  
+    double num; 
+    struct
+    {
+        int64_t mant : 52; 
+        unsigned int exp : 11; 
+        unsigned int sign : 1; 
+  
+    } bin; 
+} double64; 
 
 
 int convertebinario(int dec)
@@ -71,17 +82,42 @@ void printFloat(float32 number)
     printf("\n"); 
 } 
 
+void printDouble(double64 number) 
+{ 
+    
+    printf("%d | ", number.bin.sign); 
+    printNumber(number.bin.exp,11);
+//convertebinario(number.bin.exp);
+    printf(" | "); 
+//convertebinario(number.bin.mant);
+    printNumber(number.bin.mant,52);
+    printf("\n"); 
+} 
+
+
 
 
 int main(int argc, char *argv[]){
 	
-	float32 number;
+	
 	//scanf("%f", &number.num);
-	if(argc==1){
-		printf("Faltou o numero araguivis!\n!");
+	if(argc<3){
+		printf("Faltou o numero ou o tipo araguivis!\nEnvie no formato: ./fileName (float||double) numero\n");
 		return 0;
 	}
-	number.num= atof(argv[1]);
-	printFloat(number);
+	if(strcmp(argv[1],"float")==0){
+		float32 number;
+		number.num= atof(argv[2]);
+		printFloat(number);
+	}else if(strcmp(argv[1],"double")==0){
+		double64 number;
+		number.num= atof(argv[2]);
+		printDouble(number);
+	}else{
+		printf("tipo invalido\n");
+	}
+	
+	
+	
 	
 }
